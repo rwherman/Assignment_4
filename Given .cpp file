@@ -1,0 +1,378 @@
+/*	Assignment 8	
+	CSE 100 - classes-Soda Vending Machine
+	Spring 2014
+
+
+	Follow the directions preceded by //*
+	Replace ??? with correct code (mostly reference to the class)
+
+*/
+
+/****************   specification file   ******************/
+#include<string>			// needed for string type
+using namespace std;
+const int SIZE = 5;
+
+
+//*	add the specification code
+
+
+
+
+/****************   implementation   **********************/
+
+//* complete the default constructor
+{
+
+
+
+
+
+	
+	inStock[0] = 10;
+	inStock[1] = 8;
+	inStock[2] = 6;
+	inStock[3] = 4;
+	inStock[4] = 1;
+
+	price = 1.25;   // price is set and cannot be changed because
+                        //   there are no accessor methods
+}
+
+
+//*	write the remainder of the implementation file
+
+
+
+
+
+/********************   client   **************************/
+/*
+	assumptions: Coke is NEVER removed
+                 The user enters numeric data when required
+                 The user enters the school in all uppercase
+	// no limits on soda price (not error checked)
+*/
+#include<iostream>
+#include<iomanip>
+// #include<string>     // already in the specification file
+
+
+/**** chooses which school's vending machine 
+pre	 none
+post school  oontains a valid value
+******************************************/
+void whichMachine(string &);
+
+/**** displays menu and gets input
+pre	 school has value, vm exists
+post menu displayed, user input is A-D
+******************************************/
+void displayMenuChoice(char &, string, ???);
+
+/**** validates menu choice
+pre	 userCharacter contains user input
+post	the value is A - D
+******************************************/
+void errorChkChar(char &);
+
+/***** calls function(s) to act upon the choice
+ pre  choice is in the valid range
+ post appropriate menu choice is activated
+******************************************/
+bool evaluateChoice(char, string, ???);
+
+/**** displays menu for the appropriate school 
+pre	 vm exists, school is chosen
+post current menu displayed
+******************************************/
+void displaySodas(string, ???);
+
+/**** buy a soda and update inventory 
+pre	 vm exists
+post a particular brand is reduced by 1
+******************************************/
+void getSoda(???);
+
+/**** sets a new type of soda in machine
+pre	 vm exists
+post an existing brand is replaced by a user defined one
+******************************************/
+void changeBrand(???);
+
+/**** sets a brand to 20 cans
+pre	 vm exists
+post a particular brand has 20 cans
+******************************************/
+void restock(???);
+
+/**** states the total number of cans left
+pre	vm exists
+post FTRVAL is total number of cans left
+******************************************/
+int totalCans(???);
+
+/**** compares and dispalys # of coke left
+ pre	vm1 is ASU and vm2 is UA
+ post	comparative # of cokes left displayed
+******************************************/
+void compareCoke(???, ???);
+
+/**** displays cans remaining for each ASU and UA
+ pre total cans for ASU and UA set
+post remaining number of cns displayed
+*******************************************/
+void endDisplay(int cansASU, int cansUA);
+
+
+void main(void)
+{
+	//* instantiate some machine				// any machine
+	//* instantiate ASU and UA machines		// university machines
+	char menuChoice = ' ';
+	bool flag = true;
+	string university = "";
+	int tot_ASU = 0, tot_UA = 0;
+
+	cout << fixed;				// sets up number format
+	cout.precision(2);
+
+	do{
+		whichMachine(university);
+
+		if(university == "ASU")
+			??? = ???;
+		else if(university == "UA")
+			vm = vm_UA;
+		else if(university == "Q" || university == "q")
+			break;
+		
+		displayMenuChoice(menuChoice, university, ???);
+		flag = evaluateChoice(menuChoice, university, ???);
+
+		// transfers collected data to appropriate school machine
+		if( university == "ASU")
+			vm_ASU = vm; 
+		else 
+			??? = ???
+
+	}while(flag);
+
+	// compare amt of Coke
+	compareCoke( vm_ASU, vm_UA);
+
+	// add total cans
+	tot_ASU = totalCans(vm_ASU);
+	tot_UA = totalCans(vm_UA);
+
+	endDisplay(tot_ASU, tot_UA);
+
+cout << endl;
+}  //  end main()
+
+
+void whichMachine(string & school)
+{
+	cout << "\nWhose machine, ASU or UA? Type Q to quit. ";
+	cin >> school;
+
+	while( (school != "ASU") && (school != "UA") && (school != "Q") && (school != "q") )
+	{
+		cout << "Invalid entry, Case counts. Try again.";
+		cout << "\nWhich school, ASU or UA? Type Q to quit. ";
+		cin >> school;
+	}
+	system("cls");      // or put at top of displayMenuChoice()
+}  //  end whichMachine()
+
+void displayMenuChoice(char & choice, string school, ???)
+{
+	//	display the main menu
+	cout << endl;
+	cout << "          " << school << " Vending Machine Main Menu" << endl;
+	cout << "          -----------------------------" << endl;
+	cout << setw(15) << "A. " << "Get Soda - $ " << vm.getPrice() << endl;
+	cout << setw(15) << "B. " << "Change Brand" << endl;
+	cout << setw(15) << "C. " << "Restock Soda" << endl;
+	cout << setw(15) << "D. " << "Leave This Machine" << endl;
+	cout << "          -----------------------------" << endl;
+
+	cout << "Enter your menu choice (A - D): ";
+	cin >> choice;
+	errorChkChar(choice);
+}
+
+void errorChkChar(char & userCharacter)
+{
+    userCharacter = toupper(userCharacter);
+	while(userCharacter < 'A' || userCharacter > 'D' )
+	{
+		cout << "Invalid entry. Use only A-D. Try again. ";
+		cin >> userCharacter;
+		userCharacter = toupper(userCharacter);
+	}
+}
+
+bool evaluateChoice(char choice, string school, ???)
+{
+	switch(choice)
+	{
+		case 'A':
+			displaySodas(school, ???);
+			getSoda(???);
+			return true;        //* why is break not required?
+		case 'B':
+			displaySodas(school, ???);
+			changeBrand(vm);
+			return true;
+		case 'C':
+			displaySodas(school, ???);
+			restock(vm);
+			return true;
+		case 'D':
+			return false;
+
+	// no default because choice is error checked before being passed
+	}   // ignore warning C4715: 'evaluateChoice' : not all control paths return a value
+        //      could use "default: return false;" to eliminate warning
+}  //  end evaluateChoice()
+
+
+void displaySodas( string school, ??? vm)
+{
+	cout << endl << endl;
+	cout << "              " << school << " Vending Machine" << endl;
+	cout << "          ----------------------------" << endl;
+	cout << "          Soda          Type     Stock" << endl;
+	cout << "          ----------------------------" << endl;
+
+	for (int i = 0; i < SIZE; i++)
+		cout << setw(13) << i + 1 << "." << setw(16) << ???
+			 << setw(6) << ??? << endl; 
+}
+
+void getSoda(???)
+{
+	int sodaChoice;     // menu choice
+	bool flag = false;  // OK to go on, no errors
+
+	do{
+		cout << setw(10) << "Enter your choice: ";
+		cin >> sodaChoice;
+		while(sodaChoice < 1 || sodaChoice > SIZE) {
+			cout  << "Please enter only 1 - " << SIZE << ".";
+			cout  << "  Reenter your choice: ";
+			cin >> sodaChoice;
+		}
+
+		flag = false;  // OK to go on, no errors
+
+		// checks to see whether there are sodas left
+		if(??? (sodaChoice - 1) < 1) { 
+			cout << "\nNo " << ???(sodaChoice - 1) << " left. Make another selection.\n";
+			flag = true;	// an error, repeat choice
+		}
+	}while(flag);
+
+	// decreases amount of specific soda by 1
+	vm.decrementStock(sodaChoice-1);
+}  //  end getSoda(()
+
+void changeBrand(???)
+{
+	string sodaName, oldSoda;
+	int i = 0;				// counter
+	int subscript = 0;		// hold place of "Empty'
+	bool flag = false;
+    
+	do{	// put into a separate function?
+		cout << "Enter the name of the beverage to change: ";
+		getline(cin, oldSoda);
+
+		for (i = 0; i < SIZE; i++)
+			if(??? == oldSoda){
+				flag = true;
+				subscript = i;
+			}
+
+		if(flag){
+			cout << "Enter the new brand: ";
+			getline(cin, sodaName);
+
+			???setBrand(subscript, sodaName);
+			???setInStock(subscript, 5);
+			cout << sodaName << " replaces " << oldSoda << " and is stocked with 5 cans.\n";
+
+			flag = false;
+		}
+		else
+			cout << "The brand you entered is not on the list.\n";
+	}while(flag);
+
+	system("pause");
+}  //  end changeBrand()
+
+void restock(???)
+{	
+	string sodaName;
+	int i = 0;			// counter
+	int subscript = 0;	// hold place of "Empty'
+	bool flag = false;
+
+	do{	// put into a separate function
+		flag = false;
+		cout << "Enter the beverage name: ";
+		getline(cin, sodaName);
+
+		for (i = 0; i < SIZE; i++)
+			if(??? == sodaName){
+				flag = true;
+				subscript = i;
+			}
+
+		// this is different for each function
+		if(flag){
+			???(subscript, 20);
+			cout << sodaName << " is restocked with 20 cans.\n";
+			flag = false;
+		}
+		else
+		{
+			cout << setw(10) << sodaName << " is not on the list. Make a different selection.\n";
+			flag = true;
+		}
+	}while(flag);
+}  //  end restock()
+
+int totalCans(???)
+{
+	int total = 0;
+
+	for(int i=0; i < SIZE; i++)
+		total += ???;
+
+	return total;
+}
+
+void compareCoke(???, VendingMachine vm2)
+{
+	if( ??? > ??? )
+		cout << "\nASU has more Coke left. ASU " << ???
+			 << " cokes to UA " << ??? << " cokes";
+	
+	else if( ??? > ??? )
+		cout << "\nUofA has more Coke left. ASU - " << ???
+		     << " to UA - " << ???;
+	else
+		cout << "\nASU and UofA have the same amount of Coke, "
+		     << vm1.getInStock(0);
+}  //  end compareCoke()
+
+
+void endDisplay(int cansASU, int cansUA)
+{
+	cout << "\n ASU has " << cansASU << " cans of soda and "
+	     << "UofA has " << cansUA << " cans of soda";
+}  //  end endDisplay()
+
+
